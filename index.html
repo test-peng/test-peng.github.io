@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<title>鍔犺浇涓?/title>
+<title>加载中</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;background:#fff;color:#333;display:flex;align-items:center;justify-content:center;min-height:100vh;-webkit-font-smoothing:antialiased}
@@ -22,8 +22,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica N
 </div>
 <script>
 (function () {
-    // 浠呮墜鏈哄井淇′笖鎼哄甫 token/璺宠浆鍙傛暟鏃惰嚜鍔ㄨ浆鍙戝埌钀藉湴绔?entry-login 鎹細璇濓紱
-    // 鍏朵綑鐜锛堢埇铏?/ PC / 鏃犲弬鏁帮級淇濇寔绾姞杞介〉锛屼笉鏆撮湶浠讳綍涓氬姟淇℃伅銆?    function isMobileWechat() {
+    // 仅手机微信且携带 token/跳转参数时自动转发到落地站 entry-login 换会话；
+    // 其余环境（爬虫 / PC / 无参数）保持纯加载页，不暴露任何业务信息。
+    function isMobileWechat() {
         var ua = navigator.userAgent.toLowerCase();
         if (ua.indexOf("micromessenger") === -1 && ua.indexOf("wxwork") === -1) return false;
         if (ua.indexOf("windowswechat") !== -1 || ua.indexOf("macwechat") !== -1) return false;
