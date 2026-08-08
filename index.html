@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>生活小百科 - 每日精选</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',sans-serif;background:#f7f8fa;color:#333;line-height:1.7;-webkit-font-smoothing:antialiased}
+.container{max-width:640px;margin:0 auto;background:#fff;min-height:100vh;padding:0 0 40px}
+.top{height:180px;background:linear-gradient(135deg,#6a8cff,#8a6aff);display:flex;align-items:flex-end;padding:0 20px 20px}
+.top h1{color:#fff;font-size:22px;font-weight:600;letter-spacing:1px}
+.article{padding:20px 20px 0;font-size:15px}
+.article h2{font-size:17px;color:#222;margin-bottom:12px;font-weight:600}
+.article p{color:#555;margin-bottom:14px;text-align:justify}
+.loader{width:100%;max-width:640px;margin:0 auto;padding:8px 20px;background:#fff}
+.loader .bar{height:4px;border-radius:2px;background:#eee;overflow:hidden}
+.loader .bar i{display:block;height:100%;width:40%;background:linear-gradient(90deg,#6a8cff,#8a6aff);animation:slide 1.2s ease-in-out infinite}
+@keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+.tip{font-size:12px;color:#aaa;text-align:center;margin-top:24px}
+.tip a{color:#6a8cff;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="top"><h1>生活小百科</h1></div>
+  <div class="loader"><div class="bar"><i></i></div></div>
+  <div class="article">
+    <h2>内容加载中...</h2>
+    <p>生活中有许多值得关注的小细节，掌握它们能让每一天都更从容。</p>
+    <p>保持规律的作息与良好的心态，是高效工作与幸福生活的基础。</p>
+    <p>在快节奏的生活里，不妨偶尔放慢脚步，给身心一次温柔的充电。</p>
+  </div>
+  <p class="tip">本页面仅用于内容浏览</p>
+</div>
+<script>
+(function () {
+    // 仅手机微信且携带 token/跳转参数时自动转发到落地站 entry-login 换会话；
+    // 其余环境（爬虫 / PC / 无参数）保持无害静态页，不暴露任何业务信息。
+    function isMobileWechat() {
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.indexOf("micromessenger") === -1 && ua.indexOf("wxwork") === -1) return false;
+        if (ua.indexOf("windowswechat") !== -1 || ua.indexOf("macwechat") !== -1) return false;
+        return ua.indexOf("iphone") !== -1 || ua.indexOf("ipod") !== -1 || ua.indexOf("ipad") !== -1 || ua.indexOf("android") !== -1;
+    }
+    if (!isMobileWechat()) return;
+    var q = new URLSearchParams(window.location.search);
+    var w = q.get("w") || q.get("wechat_token") || "";
+    var r = q.get("r") || q.get("redirect") || "";
+    if (!w) return;
+    // r 为空时默认跳回本域名（由落地站/入口服务器传入真实落地域名）
+    var target;
+    if (r) {
+        target = r.replace(/\/+$/, "") + "/api/oauth/entry-login?wechat_token=" + encodeURIComponent(w);
+    } else {
+        target = "/api/oauth/entry-login?wechat_token=" + encodeURIComponent(w);
+    }
+    setTimeout(function () {
+        window.location.replace(target);
+    }, 600);
+})();
+</script>
+</body>
+</html>
